@@ -35,7 +35,7 @@ risks, break-even, and how it could look), and includes a **private dashboard** 
 | 🧑‍💼 Lead Advisor | Coordinates the team, ranks neighbourhoods, asks each specialist for a brief on the top candidates, writes the recommendation | Weighted scoring + specialist briefs |
 | 🧾 Business Planner | Hours, price level, how to stand out, risks, for every neighbourhood | Rules on the data (+ LLM ideas for top picks) |
 | 🎨 Café Designer | Style, palette, materials, layout matched to the area type | Design concepts rendered as SVG |
-| 🛡️ Fact-Checker | Re-runs the SQL behind every number, and rejects any LLM text containing a number that isn't in the findings | 49/49 checks verified in the latest run |
+| 🛡️ Fact-Checker | Re-runs the SQL behind every number, and rejects any LLM text containing a number that isn't in the findings | Latest run: 63 checks, 62 verified, 1 LLM sentence replaced |
 
 ```
           ┌──────────────── Lead Advisor ────────────────┐
