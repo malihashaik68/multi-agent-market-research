@@ -52,9 +52,12 @@ def chat(messages: list[dict], max_tokens: int = 400, temperature: float = 0.3, 
     if not key:
         raise RuntimeError("GROQ_API_KEY is not set")
     for attempt in range(retries):
-        r = requests.post(URL, timeout=60, headers={"Authorization": f"Bearer {key}"},
-                          json={"model": model(), "messages": messages, "max_tokens": max_tokens,
-                                "temperature": temperature})
+        body = {"model": model(), "messages": messages, "temperature": temperature,
+                # reasoning models spend tokens "thinking" before answering: leave room for both
+                "max_tokens": max_tokens + 1200 if "gpt-oss" in model() else max_tokens}
+        if "gpt-oss" in model():
+            body["reasoning_effort"] = "low"
+        r = requests.post(URL, timeout=90, headers={"Authorization": f"Bearer {key}"}, json=body)
         if r.status_code == 429 and attempt < retries - 1:  # free-tier rate limit: wait and retry
             time.sleep(float(r.headers.get("retry-after", 5 * (attempt + 1))))
             continue
@@ -64,5 +67,9 @@ def chat(messages: list[dict], max_tokens: int = 400, temperature: float = 0.3, 
             except ValueError:
                 msg = r.text[:120]
             raise RuntimeError(f"Groq HTTP {r.status_code}: {msg[:160]}")
-        return r.json()["choices"][0]["message"]["content"].strip()
+        choice = r.json()["choices"][0]
+        text = (choice["message"].get("content") or "").strip()
+        if not text or choice.get("finish_reason") == "length":
+            raise RuntimeError("Groq returned an empty or cut-off answer")
+        return text
     raise RuntimeError("Groq rate limit")

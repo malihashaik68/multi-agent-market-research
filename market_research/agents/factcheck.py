@@ -11,7 +11,8 @@ import re
 from market_research.agents.base import Agent, Finding, Report, say
 from market_research.tools import scalar
 
-NUM = re.compile(r"\$?\d[\d,]*(?:\.\d+)?%?")
+NUM = re.compile(r"\$?\d[\d,]*(?:\.\d+)?\s?(?:%|k\b|K\b|thousand\b)?")
+TOLERANCE = 0.02  # rounding allowed ("about 111,000" for 111,454); anything further off is treated as invented
 
 
 def _variants(v) -> set[float]:
@@ -29,12 +30,17 @@ def _variants(v) -> set[float]:
 def numbers_in(text: str) -> list[float]:
     vals = []
     for m in NUM.findall(text or ""):
-        raw = m.replace("$", "").replace(",", "").rstrip("%")
+        mult = 1000 if re.search(r"(k|K|thousand)$", m.strip()) else 1
+        raw = re.sub(r"\s?(%|k|K|thousand)$", "", m.strip()).replace("$", "").replace(",", "")
         try:
-            vals.append(float(raw))
+            vals.append(float(raw) * mult)
         except ValueError:
             pass
     return vals
+
+
+def supported(x: float, allowed: set[float]) -> bool:
+    return any(abs(x - a) <= max(0.5, TOLERANCE * abs(a)) for a in allowed)
 
 
 class FactChecker(Agent):
@@ -63,7 +69,7 @@ class FactChecker(Agent):
             allowed |= _variants(f.value)
             allowed |= set(numbers_in(f.text))
         allowed |= set(numbers_in(context))
-        unsupported = [x for x in numbers_in(text) if x not in allowed and not (1900 <= x <= 2100) and x > 3]
+        unsupported = [x for x in numbers_in(text) if not supported(x, allowed) and not (1900 <= x <= 2100) and x > 3]
         self.log.append({"agent": agent, "check": "written text", "claimed": len(numbers_in(text)),
                          "database": None, "result": "verified" if not unsupported else
                          f"removed: unsupported numbers {unsupported[:4]}"})

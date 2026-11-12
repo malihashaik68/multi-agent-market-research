@@ -78,7 +78,14 @@ def test_factchecker_rejects_invented_numbers_in_llm_text(db):
 
 
 def test_numbers_in():
-    assert numbers_in("$1,234 and 56% in 2026, 7.5 cups") == [1234.0, 56.0, 2026.0, 7.5]
+    assert numbers_in("$1,234 and 56% in 2026, 7.5 cups, 414k riders") == [1234.0, 56.0, 2026.0, 7.5, 414000.0]
+
+
+def test_factchecker_allows_rounding_but_not_invention(db):
+    fc = FactChecker()
+    findings = [Finding("r", "111,454 riders", 111454, None)]
+    assert fc.check_text("t", "About 111,000 riders (roughly 111k) pass by.", findings) == []
+    assert fc.check_text("t", "About 150,000 riders pass by.", findings) == [150000.0]
 
 
 # ------------------------------------------------------------ planner/score
