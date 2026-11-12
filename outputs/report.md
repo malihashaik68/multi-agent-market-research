@@ -26,7 +26,7 @@ Upper East Side-Carnegie Hill scores 78/100. Strong on foot traffic, available s
 
 ## Competitor Analyst
 
-There are 3,241 coffee shops in NYC and 34% are chains, led by Dunkin and Starbucks. Busy areas with few cafés, like Elmhurst, are the openings to look for; areas like Hell's Kitchen are crowded.
+New York City is home to 3,241 coffee shops, and about a third of them (34 %) are part of a chain, with Dunkin and Starbucks leading the pack at 544 and 252 locations respectively. The most under‑served, high‑traffic spot is Elmhurst in Queens, where each coffee shop serves roughly 5,096 weekday subway riders, while the opposite extreme is Hell’s Kitchen in Manhattan, where only about 275 riders pass by each shop. This mix of many independent cafés and a handful of dominant chains creates both opportunities and strong competition depending on the neighborhood you choose.
 
 - NYC has 3,241 coffee shops with a current health permit.
 - 34% of them are chain branches (1,106 shops).
@@ -36,7 +36,7 @@ There are 3,241 coffee shops in NYC and 34% are chains, led by Dunkin and Starbu
 
 ## Trend Analyst
 
-780 coffee shops opened in the last 24 months and 84% of them are independent, so there is still room for small owners. The busiest new-café scene is Midtown-Times Square.
+In the past two years, New York City has seen a surge of coffee‑shop openings, with 780 new locations launching across the city. The overwhelming majority—84 %—are independent cafés, and the hottest spot for these newcomers is Midtown‑Times Square, where 43 new shops have opened. Among the chains, Dunkin leads the pack with 51 openings, followed by Starbucks (16), Cotti Coffee (7), Matto Espresso (6) and Luckin Coffee (6).
 
 - 780 new coffee shops opened in the last 24 months.
 - 84% of new openings are independent cafés.
@@ -45,14 +45,14 @@ There are 3,241 coffee shops in NYC and 34% are chains, led by Dunkin and Starbu
 
 ## Location Scout
 
-Foot traffic is highest around Midtown-Times Square. Empty storefronts, where a new café could move in, are most common in Midtown-Times Square. Home areas have a morning rush; work areas are busy all day on weekdays but quieter at weekends.
+Midtown‑Times Square is the city’s busiest commercial hub, with about 413,985 subway entries on a typical weekday, giving your coffee shop a huge flow of potential customers. At the same time, it also has the most empty storefronts in the city—181 of the 2,744 spaces are currently vacant—so you’ll have plenty of options for a visible location. This combination of heavy foot traffic and available space makes Midtown‑Times Square a promising spot to launch your first coffee shop.
 
 - Busiest area: Midtown-Times Square with 413,985 subway entries on a typical weekday.
 - Most empty storefronts: Midtown-Times Square (181 vacant of 2,744).
 
 ## Operations Analyst
 
-Successful cafés keep their A grade (95% do), control pests and check fridge temperatures daily. 4% of coffee shops were closed by the Health Department at least once, and 66% of those had pest problems: the easiest failure to avoid.
+
 
 - 95% of NYC coffee shops hold an A health grade.
 - Chains: 98% A grades; independents: 94%.
@@ -62,4 +62,4 @@ Successful cafés keep their A grade (95% do), control pests and check fridge te
 
 ## Fact-check
 
-Checked 49 items: 49 verified against the database, no problems found.
+Checked 63 items: 58 verified against the database, 5 corrected.
