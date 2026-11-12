@@ -54,7 +54,7 @@ risks, break-even, and how it could look), and includes a **private dashboard** 
 ```
 
 **The LLM never calculates.** Every number comes from SQL (read-only SQLite: writes, `ATTACH` and multiple
-statements are refused). The LLM (Groq, `llama-3.3-70b-versatile`, optional) only phrases the findings, and the
+statements are refused). The LLM (Groq free tier, optional; the best available model is picked automatically) only phrases the findings, and the
 Fact-Checker replaces any text that adds a number it can't verify. Without a key, every agent still runs and writes
 from templates.
 

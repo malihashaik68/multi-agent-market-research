@@ -72,7 +72,7 @@ def run(refresh: bool = False) -> dict:
     analysis = {
         "meta": {**meta, "generated": time.strftime("%Y-%m-%d"),
                  # only claim an LLM if it actually wrote something that passed the fact-checker
-                 "llm": llm.MODEL if any(r.written_by == "llm" for r in reports.values()) or any(
+                 "llm": (llm.MODEL or None) if any(r.written_by == "llm" for r in reports.values()) or any(
                      p["written_by"] == "llm" for p in rec.data["picks"]) else None,
                  "runtime_seconds": round(time.time() - t0, 1)},
         "weights": WEIGHTS, "score_labels": SCORE_LABELS,

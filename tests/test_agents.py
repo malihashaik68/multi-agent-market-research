@@ -121,3 +121,10 @@ def test_published_results_are_consistent():
     for p in picks:  # the advisor's numbers match the published neighbourhood table
         assert f"{int(by[p['nta']]['coffee_shops'])} coffee shops" in " ".join(p["facts"])
     assert set(a["plans"]) == {h["nta"] for h in hoods if h["residential"]}
+
+
+def test_pick_model_prefers_strong_chat_models():
+    from market_research.llm import pick_model
+    assert pick_model(["whisper-large-v3", "llama-3.1-8b-instant", "openai/gpt-oss-120b"]) == "openai/gpt-oss-120b"
+    assert pick_model(["whisper-large-v3", "meta-llama/llama-guard-4-12b", "some-new-model"]) == "some-new-model"
+    assert pick_model(["whisper-large-v3"]) is None
