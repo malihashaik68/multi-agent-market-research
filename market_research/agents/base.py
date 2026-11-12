@@ -59,5 +59,5 @@ class Agent:
                 {"role": "user", "content": f"Facts:\n{facts}\n\n{instruction}"}], max_tokens=max_tokens)
             return text, "llm"
         except Exception as exc:  # rate limit / network: keep going with the template
-            say(self.name, "system", f"LLM unavailable ({exc.__class__.__name__}); used the template text.")
+            say(self.name, "system", f"LLM unavailable ({str(exc)[:200] or exc.__class__.__name__}); used the template text.")
             return fallback, "template"

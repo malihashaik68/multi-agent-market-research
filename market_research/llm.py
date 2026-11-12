@@ -29,6 +29,11 @@ def chat(messages: list[dict], max_tokens: int = 400, temperature: float = 0.3, 
         if r.status_code == 429 and attempt < retries - 1:  # free-tier rate limit: wait and retry
             time.sleep(float(r.headers.get("retry-after", 5 * (attempt + 1))))
             continue
-        r.raise_for_status()
+        if not r.ok:  # report Groq's own error message (never the key)
+            try:
+                msg = r.json().get("error", {}).get("message", "")
+            except ValueError:
+                msg = r.text[:120]
+            raise RuntimeError(f"Groq HTTP {r.status_code}: {msg[:160]}")
         return r.json()["choices"][0]["message"]["content"].strip()
     raise RuntimeError("Groq rate limit")

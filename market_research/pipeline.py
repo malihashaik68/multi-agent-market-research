@@ -70,7 +70,10 @@ def run(refresh: bool = False) -> dict:
     say(checker.name, "Lead Advisor", reports["checker"].summary)
 
     analysis = {
-        "meta": {**meta, "generated": time.strftime("%Y-%m-%d"), "llm": llm.MODEL if llm.available() else None,
+        "meta": {**meta, "generated": time.strftime("%Y-%m-%d"),
+                 # only claim an LLM if it actually wrote something that passed the fact-checker
+                 "llm": llm.MODEL if any(r.written_by == "llm" for r in reports.values()) or any(
+                     p["written_by"] == "llm" for p in rec.data["picks"]) else None,
                  "runtime_seconds": round(time.time() - t0, 1)},
         "weights": WEIGHTS, "score_labels": SCORE_LABELS,
         "agents": [{"key": k, "name": a.name, "icon": a.icon, "role": a.role} for k, a in
