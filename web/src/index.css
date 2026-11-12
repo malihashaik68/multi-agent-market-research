@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-cream text-espresso font-sans antialiased;
+  /* soft paper texture */
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(198, 139, 89, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(138, 154, 123, 0.10), transparent 45%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .16 0 0 0 0 .12 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+}
+
+@layer components {
+  .card {
+    @apply bg-cream-paper/90 rounded-3xl shadow-card border border-espresso/5;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-medium transition-all duration-200
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-caramel focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+  }
+  .btn-primary {
+    @apply btn bg-espresso text-cream hover:bg-espresso-light hover:-translate-y-0.5 shadow-card;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-espresso border border-espresso/20 hover:bg-espresso/5;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium;
+  }
+  .eyebrow {
+    @apply uppercase tracking-[0.2em] text-xs font-semibold text-caramel-dark;
+  }
+  .input {
+    @apply w-full rounded-xl border border-espresso/15 bg-white/70 px-3.5 py-2.5 text-espresso
+      focus:outline-none focus:ring-2 focus:ring-caramel/60 focus:border-caramel;
+  }
+  .divider {
+    @apply flex items-center gap-3 text-caramel;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    @apply h-px flex-1 bg-gradient-to-r from-transparent via-caramel/40 to-transparent;
+  }
+}
+
+/* range sliders in coffee colours */
+input[type="range"] {
+  @apply w-full appearance-none bg-transparent cursor-pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply h-1.5 rounded-full bg-caramel-light/60;
+}
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none h-5 w-5 rounded-full bg-espresso border-[3px] border-cream shadow -mt-[7px];
+}
+input[type="range"]::-moz-range-track {
+  @apply h-1.5 rounded-full bg-caramel-light/60;
+}
+input[type="range"]::-moz-range-thumb {
+  @apply h-4 w-4 rounded-full bg-espresso border-[3px] border-cream;
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease both;
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes steam {
+  0% { transform: translateY(0) scaleX(1); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translateY(-18px) scaleX(1.4); opacity: 0; }
+}
+.steam { animation: steam 2.8s ease-in-out infinite; transform-origin: center; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-in, .steam { animation: none; }
+}

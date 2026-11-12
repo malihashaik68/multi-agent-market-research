@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.pytest_cache/
+data/raw/
+node_modules/
+web/dist/
+.env
+*.log
+data/nyc_cafes.db

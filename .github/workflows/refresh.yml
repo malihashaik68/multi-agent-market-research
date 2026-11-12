@@ -1,0 +1,23 @@
+# Weekly: download fresh NYC data, run all agents, publish the new results (the website redeploys on push).
+name: refresh data
+on:
+  schedule: [{ cron: "17 6 * * 1" }]   # Mondays 06:17 UTC
+  workflow_dispatch:
+permissions: { contents: write, actions: write }
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - run: python -m market_research.pipeline --refresh
+        env: { GROQ_API_KEY: "${{ secrets.GROQ_API_KEY }}" }
+      - run: pytest -q
+      - run: |
+          git config user.name "Maliha Shaik"
+          git config user.email "malihashaik68@users.noreply.github.com"
+          git add web/public/data outputs
+          git diff --cached --quiet || (git commit -m "Weekly data refresh" && git push && gh workflow run pages.yml)
+        env: { GH_TOKEN: "${{ github.token }}" }
