@@ -5,6 +5,7 @@ Raw files are cached in data/raw/ so the pipeline can be re-run offline.
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
 import requests
@@ -23,10 +24,19 @@ INSPECTION_COLS = ("camis,dba,boro,building,street,zipcode,cuisine_description,i
                    "action,violation_code,violation_description,critical_flag,score,grade,latitude,longitude")
 
 
-def _get(url: str, params: dict, timeout: int = 180) -> list | dict:
-    r = requests.get(url, params=params, timeout=timeout)
-    r.raise_for_status()
-    return r.json()
+def _get(url: str, params: dict, timeout: int = 180, retries: int = 5) -> list | dict:
+    """GET with retries: the open-data portals sometimes return 5xx for a minute."""
+    for attempt in range(retries):
+        try:
+            r = requests.get(url, params=params, timeout=timeout)
+            if r.status_code < 500:
+                r.raise_for_status()
+                return r.json()
+            err = requests.HTTPError(f"{r.status_code} from {url.split('/resource')[0]}")
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            err = exc
+        time.sleep(10 * 2 ** attempt)
+    raise err
 
 
 def _paged(url: str, params: dict, page: int = 50000, order: str = ":id") -> list[dict]:
