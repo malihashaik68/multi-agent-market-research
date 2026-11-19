@@ -28,14 +28,14 @@ risks, break-even, and how it could look), and includes a **private dashboard** 
 
 | Agent | Job | How |
 |---|---|---|
-| 🔎 Competitor Analyst | Every coffee shop, chains vs independents, under-served and crowded areas | SQL over 3,241 coffee shops |
+| 🔎 Competitor Analyst | Every coffee shop, chains vs independents, under-served and crowded areas | SQL over 3,200+ coffee shops |
 | 📈 Trend Analyst | Where cafés opened in the last 24 months, and who opened them | Pre-opening health inspections |
 | 📍 Location Scout | Foot traffic by hour, home vs work areas, storefront vacancy, income | MTA hourly ridership, storefront registry |
 | ✅ Operations Analyst | What well-run cafés do and what gets cafés closed | Health grades, violations, closures |
 | 🧑‍💼 Lead Advisor | Coordinates the team, ranks neighbourhoods, asks each specialist for a brief on the top candidates, writes the recommendation | Weighted scoring + specialist briefs |
 | 🧾 Business Planner | Hours, price level, how to stand out, risks, for every neighbourhood | Rules on the data (+ LLM ideas for top picks) |
 | 🎨 Café Designer | Style, palette, materials, layout matched to the area type | Design concepts rendered as SVG |
-| 🛡️ Fact-Checker | Re-runs the SQL behind every number, and rejects any LLM text containing a number that isn't in the findings | Latest run: 63 checks, 62 verified, 1 LLM sentence replaced |
+| 🛡️ Fact-Checker | Re-runs the SQL behind every number, and rejects any LLM text containing a number that isn't in the findings | Every run's checks are listed on the site's "The AI team" page |
 
 ```
           ┌──────────────── Lead Advisor ────────────────┐
@@ -71,10 +71,12 @@ from templates.
 Cafés and stations are placed in neighbourhoods with a point-in-polygon join (Shapely). Each measure becomes a
 0-100 percentile score; the overall match is a weighted average that users can re-weight on the website.
 
-## Findings (latest run)
+## Findings
 
-- 3,241 coffee shops; 34% are chain branches (Dunkin 544, Starbucks 252).
-- 780 coffee shops opened in the last 24 months, and 84% of them are independent.
+The data refreshes every Monday, so exact numbers on the live site may differ slightly.
+
+- About 3,250 coffee shops; about a third (34%) are chain branches, led by Dunkin and Starbucks.
+- About 780 coffee shops opened in the last 24 months, and 84% of them are independent.
 - 95% hold an A grade; 4% were temporarily closed by inspectors, and 66% of those had pest problems.
 - Top picks (balanced priorities): Downtown Brooklyn-DUMBO-Boerum Hill, Midtown South-Flatiron-Union Square,
   Midtown-Times Square, SoHo-Little Italy-Hudson Square, Upper East Side-Carnegie Hill. Best in Queens: Long
